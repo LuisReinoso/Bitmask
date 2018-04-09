@@ -1,6 +1,6 @@
 import { has } from 'lodash';
 
-export class Bitmask {
+class Bitmask {
   private _numeroMascaras: number;
   private _mascaras: any;
   private _mascarasInversa: any;
@@ -136,3 +136,5 @@ export class Bitmask {
       return this._mascarasInversa;
   }
 }
+
+export {Bitmask};
