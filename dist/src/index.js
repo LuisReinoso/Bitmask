@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var Bitmask = /** @class */ (function () {
-    function Bitmask(valores) {
+const lodash_1 = require("lodash");
+class Bitmask {
+    constructor(valores) {
         this._numeroMascaras = 0;
         this._mascaras = {}; // numero - mascara -> string - valor
         this._mascarasInversa = {}; // string-valor -> numero-mascara
@@ -22,14 +22,14 @@ var Bitmask = /** @class */ (function () {
      * @returns {number} numero mascara correspondiente al nuevo elemento
      * @memberof Bitmask
      */
-    Bitmask.prototype.agregarValor = function (valor) {
-        var nuevaMascara = Math.pow(2, this._numeroMascaras);
+    agregarValor(valor) {
+        const nuevaMascara = Math.pow(2, this._numeroMascaras);
         this._mascaras[nuevaMascara] = valor; // mascara -> valor
         this._mascarasInversa[valor] = nuevaMascara; // valor -> mascara
         this._valores.push(valor);
         this._numeroMascaras = this._numeroMascaras + 1;
         return nuevaMascara;
-    };
+    }
     /**
      * Itera valores para agregarlos a la mascara/mascara inversa
      * agrega a la lista de valores y aumenta el numero de mascaras
@@ -38,12 +38,11 @@ var Bitmask = /** @class */ (function () {
      * @returns arreglo con las mascaras ingresadas
      * @memberof Bitmask
      */
-    Bitmask.prototype.agregarValores = function (valores) {
-        var _this = this;
-        var mascaras = [];
-        valores.forEach(function (valor) { return mascaras.push(_this.agregarValor(valor)); });
+    agregarValores(valores) {
+        const mascaras = [];
+        valores.forEach(valor => mascaras.push(this.agregarValor(valor)));
         return mascaras;
-    };
+    }
     /**
      * Averigua si tiene un valor en el arreglo de valores
      *
@@ -51,9 +50,9 @@ var Bitmask = /** @class */ (function () {
      * @returns verdadero si se encuentra en el arreglo sino falso
      * @memberof Bitmask
      */
-    Bitmask.prototype.hasValor = function (valor) {
+    hasValor(valor) {
         return this._valores.indexOf(valor) !== -1;
-    };
+    }
     /**
      * Averigua la mascara para un determinado valor
      *
@@ -61,13 +60,13 @@ var Bitmask = /** @class */ (function () {
      * @returns {(number|undefined)} numero de mascara o sino indefinido
      * @memberof Bitmask
      */
-    Bitmask.prototype.getMascaraParaUnValor = function (valor) {
-        var mascara = 0;
+    getMascaraParaUnValor(valor) {
+        let mascara = 0;
         if (lodash_1.has(this._mascarasInversa, valor)) {
             return this._mascarasInversa[valor];
         }
         return undefined;
-    };
+    }
     /**
      * Calcula la mascara para cuando esta presentes los valores
      *
@@ -75,17 +74,16 @@ var Bitmask = /** @class */ (function () {
      * @returns {number}  numero mascara para esos valores
      * @memberof Bitmask
      */
-    Bitmask.prototype.getMascarasParaValores = function (valores) {
-        var _this = this;
-        var mascara = 0;
+    getMascarasParaValores(valores) {
+        let mascara = 0;
         // TODO: Validar que siempre esten los valores
-        valores.forEach(function (valor) {
-            if (lodash_1.has(_this._mascarasInversa, valor)) {
-                mascara = mascara + _this._mascarasInversa[valor];
+        valores.forEach(valor => {
+            if (lodash_1.has(this._mascarasInversa, valor)) {
+                mascara = mascara + this._mascarasInversa[valor];
             }
         });
         return mascara;
-    };
+    }
     /**
      * Retornar los valores incluidos en una mascara
      *
@@ -93,12 +91,12 @@ var Bitmask = /** @class */ (function () {
      * @returns {string[]} valores incluidos en la mascara
      * @memberof Bitmask
      */
-    Bitmask.prototype.getValoresApartirDeMascara = function (mascara) {
+    getValoresApartirDeMascara(mascara) {
         if (mascara === -1) {
             mascara = Math.pow(2, this._numeroMascaras) - 1;
         }
-        var valores = [];
-        for (var key in this._mascaras) {
+        const valores = [];
+        for (const key in this._mascaras) {
             if (this._mascaras.hasOwnProperty(key)) {
                 // Operacion AND, si es mayor valor existe en esa mascara
                 if ((mascara & parseInt(key)) > 0) {
@@ -107,29 +105,17 @@ var Bitmask = /** @class */ (function () {
             }
         }
         return valores;
-    };
-    Object.defineProperty(Bitmask.prototype, "valores", {
-        get: function () {
-            return this._valores;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Bitmask.prototype, "mascaras", {
-        get: function () {
-            return this._mascaras;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Bitmask.prototype, "mascaraInversa", {
-        get: function () {
-            return this._mascarasInversa;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Bitmask;
-}());
+    }
+    get valores() {
+        return this._valores;
+    }
+    get mascaras() {
+        return this._mascaras;
+    }
+    get mascaraInversa() {
+        return this._mascarasInversa;
+    }
+}
 exports.Bitmask = Bitmask;
+module.exports = { Bitmask: Bitmask };
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-declare class Bitmask {
+export declare class Bitmask {
     private _numeroMascaras;
     private _mascaras;
     private _mascarasInversa;
@@ -58,4 +58,3 @@ declare class Bitmask {
     readonly mascaras: any;
     readonly mascaraInversa: any;
 }
-export { Bitmask };

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Bitmask } from '../src/index';
+import { Bitmask } from '../src';
 
 describe('Impresion de valores', () => {
     let bitmask = new Bitmask(['hola','mundo']);

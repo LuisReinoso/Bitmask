@@ -1,6 +1,6 @@
 import { has } from 'lodash';
 
-class Bitmask {
+export class Bitmask {
   private _numeroMascaras: number;
   private _mascaras: any;
   private _mascarasInversa: any;
@@ -137,4 +137,4 @@ class Bitmask {
   }
 }
 
-export {Bitmask};
+module.exports = {Bitmask: Bitmask};
